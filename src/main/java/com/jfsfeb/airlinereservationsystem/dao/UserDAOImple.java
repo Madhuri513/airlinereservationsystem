@@ -18,20 +18,19 @@ public class UserDAOImple implements UserDAO {
 				throw new AirlineSystemException("This mail id already registered please enter another emailid");
 			}
 		}
+		user.setRole("user");
 		AirlineSystemRepository.user.add(user);
 		return true;
 	}
 
 	@Override
-	public UserDetails userLogin(String emailId, String password) {
+	public UserDetails  userLogin(String emailId, String password) {
 		for (UserDetails details : AirlineSystemRepository.user) {
-			if ((details.getMailId().equals(emailId)) && (details.getPassword().equals(password))) {
+			if ((details.getMailId().equalsIgnoreCase(emailId)) && (details.getPassword().equals(password))) {
 				return details;
-			}else {
-				throw new AirlineSystemException("Enter correct mailid and password");							
 			}
 		}
-		throw new AirlineSystemException("Enter correct mailid and password");							
+		throw new AirlineSystemException("Enter correct mailid and password");
 	}
 
 	@Override

@@ -41,12 +41,12 @@ public class LoginController {
 		String password = null;
 		String name = null;
 		long phone = 0;
-		
-		log.info("************************************Welcome to Airline Reservation System**********************************");
+
+		log.info(
+				"************************************Welcome to Airline Reservation System**********************************");
 		log.info("                          --------------Available Flights details are ----------------");
 		log.info(String.format("%-10s %-10s %-13s %-15s %-15s %-15s %-15s %s", "FLIGHT_ID", "FLIGHT_NAME",
-				"ARRIVAL_TIME", "ARRIVAL_DATE", "DEPARTURE_TIME", "DEPARTURE_DATE", "CAPACITY",
-				"TICKET_PRICE"));
+				"ARRIVAL_TIME", "ARRIVAL_DATE", "DEPARTURE_TIME", "DEPARTURE_DATE", "CAPACITY", "TICKET_PRICE"));
 
 		List<FlightDetails> records = service.getFlightDetails();
 		for (FlightDetails details : records) {
@@ -66,7 +66,7 @@ public class LoginController {
 				select = scan.nextInt();
 
 				switch (select) {
-				
+
 				case 1:
 					log.info("Search fligth details by source and destination");
 
@@ -78,16 +78,21 @@ public class LoginController {
 
 					try {
 						List<FlightDetails> search = service.searchFlightBySourceAndDestination(source1, destination1);
+						log.info(String.format("%-10s %-10s %-13s %-15s %-15s %-15s %-15s %s", "FLIGHT_ID",
+								"FLIGHT_NAME", "ARRIVAL_TIME", "ARRIVAL_DATE", "DEPARTURE_TIME", "DEPARTURE_DATE",
+								"CAPACITY", "TICKET_PRICE"));
 						if (search != null) {
 							for (FlightDetails details : search) {
-								log.info(details);
+								log.info(String.format("%-10s %-15s %-10s %-17s %-15s %-15s %-15s %s",
+										details.getFlightId(), details.getFlightName(), details.getArrivalTime(),
+										details.getArrivalDate(), details.getDepartureTime(),
+										details.getDepartureDate(), details.getNoOfSeats(), details.getPrice()));
 							}
 						}
 					} catch (AirlineSystemException e) {
 						log.error(e.getMessage());
 					}
 					break;
-
 
 				case 2:
 					int userId = (int) (Math.random() * 10000);
@@ -96,7 +101,7 @@ public class LoginController {
 					}
 					userInfo.setUserId(userId);
 					log.info("Your user id: " + userId);
-					
+
 					log.info("Enter your name");
 					name = scan.next();
 					userInfo.setName(name);

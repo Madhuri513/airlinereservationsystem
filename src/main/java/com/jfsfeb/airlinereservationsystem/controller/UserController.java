@@ -66,10 +66,11 @@ public class UserController {
 						if (request != null) {
 							log.info("Booking is Successful!!!!");
 							log.info("Your Booking Details are : ");
-							log.info(request.getTicketId());
-							log.info(request.getUserDetails().getUserId());
-							log.info(request.getFlightDetails().getFlightName());
-							log.info(request.getNoOfSeatsBooked());
+							log.info(String.format("%-10s %-15s %-15s %s", "TICKET_ID", "USER_ID", "FLIGHT_ID",
+									"NUMBER_OF_SEATS"));
+							log.info(String.format("%-10s %-15s %-15s %s", request.getTicketId(),
+									request.getUserDetails().getUserId(), request.getFlightDetails().getFlightId(),
+									request.getNoOfSeatsBooked()));
 						}
 					} catch (AirlineSystemException e) {
 						log.error(e.getMessage());
@@ -95,8 +96,12 @@ public class UserController {
 					log.info("Your ticket details are : ");
 					try {
 						List<TicketsInfo> tickets = userServices.getTicketDetails(userId2);
+						log.info(String.format("%-10s %-15s %-15s %s", "TICKET_ID", "USER_ID", "FLIGHT_ID",
+								"NUMBER_OF_SEATS"));
 						for (TicketsInfo details : tickets) {
-							log.info(details);
+							log.info(String.format("%-10s %-15s %-15s %s", details.getTicketId(),
+									details.getUserDetails().getUserId(), details.getFlightDetails().getFlightId(),
+									details.getNoOfSeatsBooked()));
 						}
 						break;
 					} catch (AirlineSystemException e) {
